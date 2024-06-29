@@ -2,6 +2,16 @@
 
 {% block title %}VueJs Application{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('vuejs') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('vuejs') }}
+{% endblock %}
+
 {% block body %}
 
 <div id="vuejs-root"></div>

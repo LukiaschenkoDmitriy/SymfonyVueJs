@@ -6,10 +6,5 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import Vue from 'vue';
-import './styles/app.scss';
 
-new Vue({
-    el: "#vuejs-root",
-    template: "<div>Hello It's VueJs</div>"
-});
+import "./styles/app.scss";
