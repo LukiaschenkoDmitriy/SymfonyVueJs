@@ -1,4 +1,6 @@
+import "./app.scss";
+
 import { createApp } from "vue";
 import App from "./components/App.vue";
 
-const app = createApp(App).mount("#vuejs-root");
+createApp(App).mount("#vuejs-root");

@@ -1,5 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
-const { VueLoaderPlugin } = require('vue-loader');
+const { DefinePlugin } = require('webpack');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -71,7 +71,17 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
-    .addPlugin(new VueLoaderPlugin())
+    .addPlugin(new DefinePlugin({
+        __VUE_OPTIONS_API__: true,
+        __VUE_PROD_DEVTOOLS__: true,
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true
+    }))
+    // uncomment if you want to use PWA features
+    // reference: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    // .addPlugin(new WorkboxWebpackPlugin.GenerateSW({
+    //     clientsClaim: true,
+    //     skipWaiting: true,
+    // }))
 ;
 
 module.exports = Encore.getWebpackConfig()
