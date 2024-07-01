@@ -31,7 +31,7 @@ class ClientContactValidator
     public function isValidEmail(?string $email): bool
     {
         if (!$this->textIsNullOrEmpty($email, "email") || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errorList["email"] = "E-mail ma nieprawidłowy format!";
+            $this->errorList["email"] = "Email ma nieprawidłowy format!";
             return false;
         }
 

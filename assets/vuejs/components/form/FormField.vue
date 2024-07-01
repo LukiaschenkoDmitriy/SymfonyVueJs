@@ -6,8 +6,8 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: "FormField",
     props: {
-        modelValue: {
-            type: String as PropType<string>,
+        value: {
+            type: String,
             required: true
         },
         label: {
@@ -39,20 +39,15 @@ export default defineComponent({
             required: false
         }
     },
-    setup(props, { emit }) {
-        const localValue = ref(props.modelValue);
-
-        const updateValue = (event: Event) => {
-            const newValue = (event.target as HTMLInputElement).value;
-            localValue.value = newValue;
-            emit('update:modelValue', newValue);
-        };
-
+    setup(props) {
         return {
-            props,
-            localValue,
-            updateValue
+            props
         };
+    },
+    methods: {
+        updateFieldEmit(event: Event) {
+            this.$emit("update-field", event, this.props.name);
+        }
     }
 })
 </script>
@@ -60,19 +55,19 @@ export default defineComponent({
 <template>
     <div class="field">
         <div v-if="!props.textarea" class="form-floating">
-            <input class="form-control" :type="props.type" :id="props.label" :name="props.name" :value="localValue"
-                :placeholder="props.placeholder" :required="required" @input="updateValue($event)">
+            <input class="form-control" :type="props.type" :id="props.label" :name="props.name" :value="value"
+                :placeholder="props.placeholder" :required="required" @input="updateFieldEmit($event)">
             <label class="form-label" :for="props.label">{{ props.label }}</label>
             <div class="invalid-feedback">
                 {{ props.invalidMessage }}
             </div>
         </div>
         <div v-else class="form-floating">
-            <textarea class="form-control" :name="props.name" :id="props.label + ' floatingTextarea'" @input="updateValue($event)"
-                :placeholder="props.placeholder"  :required="required" style="height: 100px">{{ localValue }}</textarea>
+            <textarea class="form-control" :name="props.name" :value="value" :id="props.label + ' floatingTextarea'" @input="updateFieldEmit($event)"
+                :placeholder="props.placeholder"  :required="required" style="height: 100px">{{ value }}</textarea>
             <label class="form-label" :for="props.label">{{ props.label }}</label>
             <div class="invalid-feedback">
-                {{ props.invalidMessage }}
+                {{ props.invalidMessage }}e
             </div>
         </div>
     </div>  

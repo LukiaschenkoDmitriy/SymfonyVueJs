@@ -5,7 +5,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(45deg, #2c3e50, #4ca1af, #2c3e50);
+    background: linear-gradient(45deg, #3a70df, #d52929);
     background-size: 600% 600%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     animation: GradientAnimation 15s ease infinite;
@@ -29,13 +29,17 @@ h1 {
     color: white;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
+    font-size: 100px;
 }
 
 .button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
     padding: 15px 30px;
-    font-size: 18px;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
     border-radius: 12px;
     cursor: pointer;

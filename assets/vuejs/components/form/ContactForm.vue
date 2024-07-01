@@ -3,6 +3,7 @@
 import { defineComponent } from 'vue';
 import FormField from './FormField.vue';
 import { ContactFormInputData } from './interfaces';
+import { Transition } from 'vue';
 
 export default defineComponent({
     name: "ContactForm",
@@ -43,6 +44,25 @@ export default defineComponent({
             };
 
             this.$emit("api-callback", data);
+        },
+        updateField(event: Event, fieldName: string) {
+            const newValue = (event.target as HTMLInputElement).value;
+            switch (fieldName) {
+                case "form_username":
+                    this.username = newValue;
+                    break;
+                case "form_lastname":
+                    this.lastname = newValue;
+                    break;
+                case "form_email":
+                    this.email = newValue;
+                    break;
+                case "form_message":
+                    this.message = newValue;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 })
@@ -52,22 +72,24 @@ export default defineComponent({
 <template>
     <form @submit.prevent="updateData" :action="props.action" class="form contact-form was-validated" method="POST">
         <h3 class="title">{{ title }}</h3>
-        <div class="form-error" v-if="props.formError != undefined">
-            <ul>
-                <li v-for="(text, name) in props.formError">
-                    {{ text }}
-                </li>
-            </ul>
-        </div>
+            <Transition name="bounce2">
+                <div class="form-error" v-if="props.formError != undefined">
+                        <ul>
+                            <li v-for="(text, name) in props.formError">
+                                {{ text }}
+                            </li>
+                        </ul>
+                </div>
+            </Transition>
         <div class="fields">
-            <FormField invalid-message="Wpisz swoje imię" v-model="username" label="Imię" type="text"
-                name="form_username" placeholder="" :required="true" />
-            <FormField invalid-message="Wpisz swoje nazwisko" v-model="lastname" label="Nazwisko" type="text"
+            <FormField invalid-message="Wpisz swoje imię" :value="username" label="Imię" type="text"
+                name="form_username" placeholder="" :required="true" @update-field="updateField"/>
+            <FormField invalid-message="Wpisz swoje nazwisko" :value="lastname" @update-field="updateField" label="Nazwisko" type="text"
                 name="form_lastname" placeholder="" :required="true" />
-            <FormField invalid-message="Wpisz swój e-mail" v-model="email" label="E-mail" type="email" name="form_email"
+            <FormField invalid-message="Wpisz swój email" :value="email" @update-field="updateField" label="Email" type="email" name="form_email"
                 placeholder="" :required="true" />
-            <FormField invalid-message="Wpisz wiadomość" v-model="message" label="Wiadomość" type="text"
-                name="form_message" placeholder="" :required="true" :textarea="true" />
+            <FormField invalid-message="Wpisz wiadomość" :value="message" label="Wiadomość" type="text"
+                name="form_message" placeholder="" :required="true" @update-field="updateField" :textarea="true" />
             <div class="form-check field my-4">
                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                 <label class="form-check-label" for="invalidCheck">
@@ -96,6 +118,28 @@ export default defineComponent({
 
         .btn {
             width: 100%;
+        }
+    }
+
+    .bounce2-enter-active {
+        animation: bounce2-in 0.5s;
+    }
+    .bounce2-leave-active {
+        animation: bounce2-in 0.5s reverse;
+    }
+
+    @keyframes bounce2-in {
+        0% {
+            opacity: 0% !important;
+            transform: scale(0);
+        }
+        50% {
+            opacity: 50% !important;
+            transform: scale(1.25);
+        }
+        100% {
+            opacity: 100% !important;
+            transform: scale(1);
         }
     }
 </style>

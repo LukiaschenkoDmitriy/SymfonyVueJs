@@ -22,7 +22,7 @@ class ClientContact
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100000)]
     private ?string $message = null;
 
     public function getId(): ?int
