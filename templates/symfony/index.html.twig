@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Application{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>Symfony Controller</h1>
+    <a href="{{ path('app.vuejs') }}" class="button">Przejdź do kontrolera VueJs.</a>
+{% endblock %}
